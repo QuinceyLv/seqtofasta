@@ -1,5 +1,7 @@
 #!usr/bin/env python3
 # -*- coding:utf-8 -*-
+# seqToFasta v0.3
+# Coding by Quincey, Shuyi Zhang's Lab
 
 import glob
 import re
