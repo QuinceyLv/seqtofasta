@@ -1,17 +1,17 @@
 #!usr/bin/env python3
 # -*- coding:utf-8 -*-
-# seqToFasta v0.4
+# seqToFasta v0.5
 # Coding by Quincey, Shuyi Zhang's Lab
 
 import glob
 import re
 
 print(f"=========================================\n"
-      f"              seqToFasta v0.4\n"
+      f"              seqToFasta v0.5\n"
       f"=========================================\n"
       f"Usage: Paste full path of a directory contains .seq files here.\n")
 pattern0 = re.compile(r'\\')
-pattern1 = re.compile(r'\(\w+\)')
+pattern1 = re.compile(r'\(.+\)')
 count = 0
 
 while True:
