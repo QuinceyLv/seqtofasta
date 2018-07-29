@@ -32,6 +32,6 @@ while True:
                     print(lines,file=fout)
             count += 1
 
-        print(f'\nComplete. {count} file(s) processed. Please check the output file.\n'
-              f'\n'
-              f'Paste another directory to continue, or close the window to quit.\n')
+    print(f'\nComplete. {count} file(s) processed. Please check the output file.\n'
+          f'\n'
+          f'Paste another directory to continue, or close the window to quit.\n')
