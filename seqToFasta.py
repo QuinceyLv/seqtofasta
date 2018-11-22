@@ -24,7 +24,8 @@ while True:
         with open(f'{folder}/{fileName}.fasta', 'a') as fout:
             fin = file.split('/').pop().split('\\').pop()
             print(f'Processing {fin}.')
-            fastaHead = re.findall(p1, file)[0][1:-1]
+            sampleName = file.split('/')[-1]
+            fastaHead = re.findall(p1, sampleName)[0][1:-1]
             print(f'>{fastaHead}', file=fout)
             with open(file) as f:
                 for lines in f:
