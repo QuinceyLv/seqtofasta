@@ -1,13 +1,13 @@
 #!usr/bin/env python3
 # -*- coding:utf-8 -*-
-# seqToFasta v0.7
+# seqToFasta v0.8
 # Coding by Quincey, Shuyi Zhang's Lab
 
 from glob import glob
 import re
 
 print(f"===========================================\n"
-      f"              seqToFasta v0.7\n"
+      f"              seqToFasta v0.8\n"
       f"===========================================\n"
       f"Usage: Paste full path of a directory contains .seq files here.\n")
 
@@ -24,7 +24,7 @@ while True:
         with open(f'{folder}/{fileName}.fasta', 'a') as fout:
             fin = file.split('/').pop().split('\\').pop()
             print(f'Processing {fin}.')
-            sampleName = file.split('/')[-1]
+            sampleName = file.split('\\')[-1]
             fastaHead = re.findall(p1, sampleName)[0][1:-1]
             print(f'>{fastaHead}', file=fout)
             with open(file) as f:
