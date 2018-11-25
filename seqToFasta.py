@@ -7,32 +7,29 @@ from glob import glob
 import re
 
 print(f"===========================================\n"
-      f"              seqToFasta v0.8\n"
+      f"              seqToFasta v0.9\n"
       f"===========================================\n"
       f"Usage: Paste full path of a directory contains .seq files here.\n")
 
-p1 = re.compile(r'\([^()]+\)')
-count = 0
+namePattern = re.compile(r'[(](.*?)[)]', re.S)
 
 while True:
-    folder = input('Please enter a directory: ')
-    folder = folder.replace('\\', '/')
-    fileName = input('Please enter name of the output file: ')
+    count = 0
+    folder = input('Please enter a directory: ').replace('\\', '/')
     fileList = glob(f'{folder}/*.seq')
+    outFileName = folder.split('/')[-1]
 
-    for file in fileList:
-        with open(f'{folder}/{fileName}.fasta', 'a') as fout:
-            fin = file.split('/').pop().split('\\').pop()
-            print(f'Processing {fin}.')
-            sampleName = file.split('\\')[-1]
-            fastaHead = re.findall(p1, sampleName)[0][1:-1]
-            print(f'>{fastaHead}', file=fout)
-            with open(file) as f:
-                for lines in f:
-                    lines = lines.rstrip()
-                    print(lines, file=fout)
+    with open(f'{folder}/{outFileName}.fasta', 'w') as fileOut:
+        for file in fileList:
+            fileIn = file.split('\\').pop()
+            sampleName = re.findall(namePattern, fileIn)[0]
+            print(f'>{sampleName}', file=fileOut)
+            with open(file) as readFile:
+                for lines in readFile:
+                    print(lines.rstrip(), file=fileOut)
+            print(f'Processed {fileIn}.')
             count += 1
 
     print(f'\nComplete. {count} file(s) processed. Please check the output file.\n'
           f'\n'
-          f'Paste another directory to continue, or close the window to quit.\n')
+          f'Paste another directory to continue, or close to quit.\n')
