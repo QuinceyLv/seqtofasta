@@ -1,10 +1,10 @@
 #!usr/bin/env python3
 # -*- coding:utf-8 -*-
 # seqToFasta v1.00
-# Coding by Quincey, Shuyi Zhang's Lab
+# Coding by Quincey, Shuyi Zhang Lab
 
 from glob import glob
-from re import compile, findall
+from re import compile, findall, match
 import tkinter as tk
 from tkinter import ttk
 from tkinter import scrolledtext
@@ -29,8 +29,13 @@ def run_script():
     with open(f'{folder}/{out_file_name}.fasta', 'w') as fileOut:
         for file in file_list:
             fileIn = file.split('\\').pop()
-            sampleName = findall(name_pattern, fileIn)[0]
-            print(f'>{sampleName}', file=fileOut)
+            if match(name_pattern, fileIn) is None:
+                sampleName = fileIn
+                print(f'>{sampleName}', file=fileOut)
+            else:
+                sampleName = findall(name_pattern, fileIn)[0]
+                print(f'>{sampleName}', file=fileOut)
+
             with open(file) as readFile:
                 for lines in readFile:
                     print(lines.rstrip(), file=fileOut)
@@ -41,8 +46,8 @@ def run_script():
             count += 1
 
     outBox.configure(state='normal')
-    outBox.insert(tk.END, f'''\nComplete. {count} file(s) processed. \
-    Please check {fileOut.name}.\n\nPaste another directory to continue, or close to quit.\n''')
+    outBox.insert(tk.END, f'''\nComplete. {count} file(s) processed. \n\
+    Please check {fileOut.name}.\n\nEnter another path to continue, or close to quit.\n''')
     outBox.see(tk.END)
 
     button.configure(text='Start', state='normal')
@@ -53,14 +58,11 @@ def run_script():
 head = f'''            ===========================================
                                                 seqToFasta v 1.00
             ===========================================   
-Paste full path of a directory contains .seq files (e.g. D:\测序结果) here and click Start.   '''
+Enter full path of a folder contains .seq files (e.g. D:\测序结果) here and click Start.   '''
 
 welcomePage = f'''\
 Coded by Quincey, Shuyi Zhang Lab\n\n\
 Make sure you're processing Sanger sequencing files by Sangon.\n\n\
-Use this program to process .seq files by other sequencing institutions 
-would not do harm to your files, though you would get a multifasta file \
-with improper sample names.\n\n\
 If you have any problems using it, please contact quincey@bemani.cn.\n\n'''
 
 window = tk.Tk()
