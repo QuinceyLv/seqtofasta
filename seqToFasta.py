@@ -46,8 +46,7 @@ def run_script():
             count += 1
 
     outBox.configure(state='normal')
-    outBox.insert(tk.END, f'''\nComplete. {count} file(s) processed. \n\
-    Please check {fileOut.name}.\n\nEnter another path to continue, or close to quit.\n''')
+    outBox.insert(tk.END, f'''\nComplete. {count} file(s) processed. \nPlease check {fileOut.name}.\n\nEnter another path to continue, or close to quit.\n''')
     outBox.see(tk.END)
 
     button.configure(text='Start', state='normal')
