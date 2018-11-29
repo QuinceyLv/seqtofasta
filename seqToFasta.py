@@ -4,7 +4,7 @@
 # Coding by Quincey, Shuyi Zhang Lab
 
 from glob import glob
-from re import compile, findall, match
+from re import *
 import tkinter as tk
 from tkinter import ttk
 from tkinter import scrolledtext
@@ -29,7 +29,7 @@ def run_script():
     with open(f'{folder}/{out_file_name}.fasta', 'w') as fileOut:
         for file in file_list:
             fileIn = file.split('\\').pop()
-            if match(name_pattern, fileIn) is None:
+            if search(name_pattern, fileIn) is None:
                 sampleName = fileIn
                 print(f'>{sampleName}', file=fileOut)
             else:
